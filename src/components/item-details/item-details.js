@@ -1,29 +1,43 @@
 import React, { Component } from 'react';
 import './item-details.css';
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import ErrorButton from '../error-button'
 import ErrorBoundry from '../error-boundry';
 
+const Record = ({ item, field, label }) => {
+    return (
+        <li className="list-group-item">
+            <span className="term">{ label }</span>
+            <span>{ item[field] }</span>
+        </li>
+    );
+};
+
+export {
+    Record
+};
+
 export default class ItemDetails extends Component {
-    swapiService = new SwapiService();
 
     state = {
-        person: null,
+        item: null,
+        img: null,
         loading: true,
         error: false
     };
 
-    updatePerson () {
-        const { selectedPerson } = this.props;
-        if (!selectedPerson) {
+    updateItem () {
+        const { selectedItem, getData, getImgUrl } = this.props;
+        if (!selectedItem) {
             return;
         }
-        this.swapiService
-        .getPerson(selectedPerson)
-        .then((person) => {
-            this.setState({ person, loading: false });
+        getData(selectedItem)
+        .then((item) => {
+            this.setState({ 
+                item,
+                loading: false,
+                img: getImgUrl(item)
+             });
         })
         .catch(this.newError)
     };
@@ -36,8 +50,8 @@ export default class ItemDetails extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedPerson !== prevProps.selectedPerson) {
-            this.updatePerson();
+        if (this.props.selectedItem !== prevProps.selectedItem) {
+            this.updateItem();
             this.setState({
                 loading: true
             })
@@ -45,19 +59,19 @@ export default class ItemDetails extends Component {
     };
 
     componentDidMount () {
-        this.updatePerson();
+        this.updateItem();
     };
 
     render() {
-        if (!this.state.person) {
+        const { item, error, loading, img } = this.state;
+        if (!item) {
             return <span>Select person from the list</span>
         }
-        const { person, error, loading } = this.state;
         
         const hasData = !(error || loading);
         const errorMessage = error ? <ErrorIndicator /> : null;
         const spinner = loading ? <Spinner className="spinner" /> : null;
-        const view = hasData ? <PersonView  person={person} getCrash={this.props.getCrash} /> : null;
+        const view = hasData ? <ItemView children={this.props.children}   item={item} img={img} getCrash={this.props.getCrash} /> : null;
 
         return (
                 <ErrorBoundry>
@@ -71,29 +85,20 @@ export default class ItemDetails extends Component {
     }
 }
 
-const PersonView = ({ person }) => {
-    const { name, gender, birthYear, eyeColor, id } = person;
+const ItemView = ({ item, img, children }) => {
     return(
         <React.Fragment>
             <div className="col-5">
-                <img className="person-img" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt="Sorry somthing goes wrong" />
+                <img className="person-img" src={img} alt="Sorry somthing goes wrong" />
             </div>        
                 <div className="col-6">
-                    <h3>{name}</h3>
+                    <h5>{item.name}</h5>
                     <ul className="list-group">
-                            <li className="list-group-item">
-                                <span className="term">gender: </span>
-                                <span>{gender}</span>
-                            </li>
-                            <li className="list-group-item">
-                                <span className="term">birthYear: </span>
-                                <span>{birthYear}</span>
-                            </li>
-                            <li className="list-group-item">
-                                <span className="term">eyeColor: </span>
-                                <span>{eyeColor}</span>
-                            </li>
-                            <ErrorButton />
+                        { 
+                            React.Children.map(children, (child) => {
+                                return React.cloneElement(child, {item})
+                            })
+                         }
                     </ul>
                 </div>
         </React.Fragment>

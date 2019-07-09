@@ -33,7 +33,7 @@ export default class RandomPlanet extends Component {
     }
 
     updatePlanet = () => {
-        const idx = Math.floor(Math.random()*19) + 1;
+        const idx = Math.floor(Math.random()*17) + 2;
         const id = idx;
         this.swapiSrvice
         .getPlanet(id)
@@ -64,7 +64,7 @@ const PlanetView = ({ planet }) => {
     const { id, name, population, rotationPeriod, diameter } = planet;
     return (
         <React.Fragment>
-                    <img className="planet-img" src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+                    <img className="planet-img" src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt='Something goes wrong' />
                     <div>
                         <h3>{name}</h3>
                         <ul className="list-group">
