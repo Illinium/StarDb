@@ -22,11 +22,20 @@ export default class App extends Component {
                     <Router>
                         <Header />
                         <RandomPlanet />
-                        <Route path='/' render={() => <h2>Home Page</h2>} exact />
-                        <Route path='/people' component={PeoplePage} exact />
-                        <Route path='/planets' component={PlanetPage} exact />
+                        <Route path='/' 
+                               exact
+                               render={() => <h2>Home Page</h2>}  
+                        />
+                        <Route path='/people' component={PeoplePage} />
+                        <Route path='/planets' component={PlanetPage} />
                         <Route path="/starships" exact component={StarshipPage} />
-                        <Route path="/starships/:id" render={() => <StarshipDetails />} />
+                        <Route path="/starships/:id" 
+                               exact
+                               render={({match}) => {
+                                   const {id} = match.params;
+                                   return <StarshipDetails id={id} />
+                            }}
+                        />
                     </Router>    
                 </SwapiServiceProvider>
             </div>
