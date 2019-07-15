@@ -8,7 +8,7 @@ import { PeoplePage } from '../pages';
 import { PlanetPage } from '../pages';
 import { StarshipPage } from '../pages';
 import { StarshipDetails } from '../sw-components';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 export default class App extends Component {
@@ -22,24 +22,26 @@ export default class App extends Component {
                     <Router>
                         <Header />
                         <RandomPlanet />
-                        <Route path='/' 
-                               exact
-                               render={() => <h2>Home Page</h2>}  
-                        />
-                        <Route path='/people' component={PeoplePage} />
-                        <Route path='/planets' component={PlanetPage} />
-                        <Route path="/starships" exact component={StarshipPage} />
-                        <Route path="/starships/:id" 
-                               exact
-                               render={({match}) => {
-                                   const {id} = match.params;
-                                   return <StarshipDetails id={id} />
-                            }}
-                        />
-                    </Router>    
+                        <Switch>
+                              <Route path='/'
+                                     exact
+                                     render={() => <h2>Home Page</h2>}
+                              />
+                              <Route path="/people/:id?" component={PeoplePage} />
+                              <Route path="/planets/:id?" component={PlanetPage} />
+                              <Route path="/starships" exact component={StarshipPage}/>
+                              <Route path="/starships/:id"
+                                     exact
+                                     render={({match}) => {
+                                         const {id} = match.params;
+                                         return <StarshipDetails id={id} />
+                                  }}
+                              />
+                              <Route render={() =>  <h2>Sorry, this page not found.</h2>} />
+                          </ Switch>
+                    </Router>
                 </SwapiServiceProvider>
             </div>
         )
     }
 }
-
