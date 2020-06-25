@@ -1,15 +1,16 @@
 .random-planet {
-    display: flex;
-    margin-top: 2rem;
+  display: flex;
+  margin-top: 2rem;
 }
 .planet-img {
-    width: 13rem;
-    height: 15rem;
+  width: 15rem;
+  height: auto;
 }
-.term, h3 {
-    margin-left: 25px;
-    margin-right: 7px;
+.term,
+h3 {
+  margin-left: 25px;
+  margin-right: 7px;
 }
 .spinner {
-    align-self: center;
+  align-self: center;
 }

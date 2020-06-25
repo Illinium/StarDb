@@ -1,0 +1,18 @@
+.navbar-expand-lg {
+  justify-content: space-between;
+}
+
+.nav-item a {
+  padding: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.nav-item a:hover {
+  color: aqua;
+}
+
+.navbar-collapse {
+  flex-grow: 0 !important;
+}
