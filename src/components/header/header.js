@@ -1,12 +1,12 @@
-import React from "react";
-import "./header.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './header.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
-        <h1>StarDB</h1>
+        <h1>StarDB by Oleksii Khodorko</h1>
       </Link>
       <button
         className="navbar-toggler"
