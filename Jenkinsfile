@@ -27,14 +27,10 @@ pipeline {
                 script {
                     sh '''
                     sudo rm -rf $DEPLOY_DIR/*
-                    
-                    pwd
 
-                    ls
+                    git clone $REPO_URL
                     
-                    git clone $REPO_URL tmp_repo
-                    
-                    sudo cp -r tmp_repo/* $DEPLOY_DIR/
+                    sudo cp -r build/* $DEPLOY_DIR/
                     
                     rm -rf tmp_repo
                     '''
