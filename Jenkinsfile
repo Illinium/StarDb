@@ -29,6 +29,10 @@ pipeline {
                     sudo rm -rf $DEPLOY_DIR/*
                     
                     git clone $REPO_URL tmp_repo
+
+                    pwd
+
+                    ll
                     
                     sudo cp -r tmp_repo/* $DEPLOY_DIR/
                     
