@@ -30,7 +30,7 @@ pipeline {
                     
                     pwd
 
-                    ll
+                    ls
                     
                     git clone $REPO_URL tmp_repo
                     
