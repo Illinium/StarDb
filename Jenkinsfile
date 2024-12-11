@@ -28,7 +28,7 @@ pipeline {
                     sh '''
                     sudo rm -rf $DEPLOY_DIR/*
 
-                    git clone $REPO_URL
+                    git clone $GIT_REPO
                     
                     sudo cp -r build/* $DEPLOY_DIR/
                     
