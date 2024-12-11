@@ -50,7 +50,7 @@ pipeline {
 
                     if [ $ERROR_COUNT -gt 0 ]; then
                         echo "Found $ERROR_COUNT error(s) in the logs:"
-                        sudo grep -E " [4|5][0-9]{2} " $LOG_FILE
+                        grep -E " [4|5][0-9]{2} " $LOG_FILE
                         exit 1
                     else
                         echo "No 4xx or 5xx errors found in the logs."
