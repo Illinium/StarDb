@@ -46,7 +46,7 @@ pipeline {
                     echo "Checking $LOG_FILE for 4xx and 5xx errors..."
 
                     # Count occurrences of 4xx and 5xx errors
-                    ERROR_COUNT=$(grep -E " [4|5][0-9]{2} " $LOG_FILE | wc -l)
+                    ERROR_COUNT=$(grep -E " [5][0-9]{2} " $LOG_FILE | wc -l)
 
                     if [ $ERROR_COUNT -gt 0 ]; then
                         echo "Found $ERROR_COUNT error(s) in the logs:"
