@@ -32,7 +32,7 @@ pipeline {
                     
                     sudo cp -r build/* $DEPLOY_DIR/
                     
-                    rm -rf ./
+                    rm -rf *
                     '''
                 }
             }
