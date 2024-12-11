@@ -43,12 +43,6 @@ pipeline {
                     sh '''
                     LOG_FILE="/var/log/apache2/access.log"
 
-                    # Ensure the log file exists
-                    if [ ! -f "$LOG_FILE" ]; then
-                        echo "Log file $LOG_FILE not found!"
-                        exit 1
-                    fi
-
                     echo "Checking $LOG_FILE for 4xx and 5xx errors..."
 
                     # Count occurrences of 4xx and 5xx errors
